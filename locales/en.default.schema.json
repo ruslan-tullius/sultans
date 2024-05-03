@@ -2762,6 +2762,25 @@
         "name": "Page"
       }
     },
+    "build-your-box": {
+      "name": "Build your box",
+      "settings": {
+        "page": {
+          "label": "Build your box"
+        },
+        "background_image": {
+          "label": "Background image",
+          "info": "This image is used as the background for the first step of Availability. For best results, use an image with a 16:9 aspect ratio. [Learn more](https://help.shopify.com/manual/shopify-admin/productivity-tools/image-editor#understanding-image-aspect-ratio)"
+        },
+        "bundle_product": {
+          "label": "Bundle product",
+          "info": "This product will be used to create a bundle."
+        }
+      },
+      "presets": {
+        "name": "Build your box"
+      }
+    },
     "quick-order-list": {
       "name": "Quick order list",
       "settings": {
