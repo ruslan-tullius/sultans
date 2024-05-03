@@ -7,7 +7,7 @@ const foreach = require('gulp-foreach');
 const mode = require('gulp-mode')();
 const babel = require('gulp-babel');
 const jsx = [
-  './components/featured-products/FeaturedProducts.jsx'
+  './components/subscription/Subscription.jsx'
 ];
 
 const toUnderScore = (key) => {

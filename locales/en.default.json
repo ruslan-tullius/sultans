@@ -80,6 +80,42 @@
     "collapsible_content_title": "Collapsible content",
     "complementary_products": "Complementary products"
   },
+  "build_your_box": {
+    "name": "Build your box",
+    "step1": "Availability",
+    "step2": "Add items",
+    "step3": "Review",
+    "validate": {
+      "zipcode_is_required": "Zipcode is required",
+      "zipcode_is_not_valid": "Zipcode is not valid for our services",
+      "email_is_required": "Email is required",
+      "enter_valid_email": "Please enter a valid email address"
+    },
+    "availability": {
+      "title": "VERIFY SERVICE AVAILABILITY",
+      "description": "We need to ensure that our services can be provided in your location.",
+      "zip_code": "Postal Code",
+      "zip_code_placeholder": "Enter your zipcode",
+      "email": "Email Address",
+      "email_placeholder": "Your email address",
+      "confirm_button": "Confirm Availability",
+      "check_button": "Checking Availability...",
+      "terms": "Proceeding means you accept our Terms of Service and Privacy Policy"
+    },
+    "items": {
+      "add_to_box": "Add to Box"
+    },
+    "box": {
+      "title": "YOUR BOX",
+      "clear_button": "Clear Box",
+      "empty_text": "Your box is empty",
+      "continue_button": "Continue",
+      "continue_button_disabled": "Add [count] more items!"
+    },
+    "review": {
+      "title": "Review your box"
+    }
+  },
   "blogs": {
     "article": {
       "blog": "Blog",
