@@ -1,0 +1,58 @@
+{{ 'subscription.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'subscription.min.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  {% if section.settings.background_image != blank %}
+    .section-{{ section.id }} .subscription-check {
+      background-image: url('{{ section.settings.background_image | img_url: '1024x' }}');
+    }
+  {% endif %}
+{%- endstyle -%}
+
+<script id="bundle-product" type="application/json" data-section-data>
+  {
+    "variantId": {{ section.settings.bundle_product.selected_or_first_available_variant.id | json }},
+    "bundleSize": {{ section.settings.bundle_size | json }}
+  }
+</script>
+
+<div class="section-{{ section.id }}">
+  <div data-subscription data-id="{{ section.id }}"></div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.build-your-box.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "t:sections.build-your-box.settings.bundle_product.label",
+      "info": "t:sections.build-your-box.settings.bundle_product.info"
+    },
+    {
+      "type": "number",
+      "id": "bundle_size",
+      "label": "t:sections.build-your-box.settings.bundle_size.label",
+      "info": "t:sections.build-your-box.settings.bundle_size.info",
+      "default": 12
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.build-your-box.settings.background_image.label",
+      "info": "t:sections.build-your-box.settings.background_image.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.build-your-box.presets.name"
+    }
+  ]
+}
+{% endschema %}
