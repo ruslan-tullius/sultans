@@ -11,7 +11,8 @@
 
 <script id="bundle-product" type="application/json" data-section-data>
   {
-    "bundleProductId": {{ section.settings.bundle_product.selected_or_first_available_variant.id | json }}
+    "variantId": {{ section.settings.bundle_product.selected_or_first_available_variant.id | json }},
+    "bundleSize": {{ section.settings.bundle_size | json }}
   }
 </script>
 
@@ -33,6 +34,13 @@
       "id": "bundle_product",
       "label": "t:sections.build-your-box.settings.bundle_product.label",
       "info": "t:sections.build-your-box.settings.bundle_product.info"
+    },
+    {
+      "type": "number",
+      "id": "bundle_size",
+      "label": "t:sections.build-your-box.settings.bundle_size.label",
+      "info": "t:sections.build-your-box.settings.bundle_size.info",
+      "default": 12
     },
     {
       "type": "image_picker",

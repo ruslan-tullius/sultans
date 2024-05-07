@@ -2775,6 +2775,10 @@
         "bundle_product": {
           "label": "Bundle product",
           "info": "This product will be used to create a bundle."
+        },
+        "bundle_size": {
+          "label": "Bundle Size",
+          "info": "The number of products in the bundle."
         }
       },
       "presets": {

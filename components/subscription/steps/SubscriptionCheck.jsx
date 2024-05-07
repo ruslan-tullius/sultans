@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SubscriptionCheck = ({onCompleted}) => {
+const SubscriptionCheck = ({onCompleted, step}) => {
   const [zipcode, setZipcode] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState({});
@@ -9,18 +9,29 @@ const SubscriptionCheck = ({onCompleted}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Validates user input and sets error messages
-  const validateForm = () => {
-    const newErrors = {};
-    if (!zipcode) {
-      newErrors.zipcode = window.sultans.Strings.subscription.validate.zipcodeIsRequired;
-    } else if (!validZipcodes.includes(zipcode)) {
-      newErrors.zipcode = window.sultans.Strings.subscription.validate.zipcodeIsNotValid;
+  const validate = (id, value, checkAll = false) => {
+    const newErrors = checkAll ? {} : { ...errors };
+
+    if (checkAll || id === "zipcode") {
+      const currentZipcode = id === "zipcode" ? value : zipcode;
+      if (!currentZipcode) {
+        newErrors.zipcode = window.sultans.Strings.subscription.validate.zipcodeIsRequired;
+      } else if (!validZipcodes.includes(currentZipcode)) {
+        newErrors.zipcode = window.sultans.Strings.subscription.validate.zipcodeIsNotValid;
+      } else if (!checkAll) {
+        delete newErrors.zipcode;
+      }
     }
 
-    if (!email) {
-      newErrors.email = window.sultans.Strings.subscription.validate.emailIsRequired;
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = window.sultans.Strings.subscription.validate.enterValidEmail;
+    if (checkAll || id === "email") {
+      const currentEmail = id === "email" ? value : email;
+      if (!currentEmail) {
+        newErrors.email = window.sultans.Strings.subscription.validate.emailIsRequired;
+      } else if (!emailRegex.test(currentEmail)) {
+        newErrors.email = window.sultans.Strings.subscription.validate.enterValidEmail;
+      } else if (!checkAll) {
+        delete newErrors.email;
+      }
     }
 
     return newErrors;
@@ -31,7 +42,7 @@ const SubscriptionCheck = ({onCompleted}) => {
     event.preventDefault();
     setIsLoading(true);
 
-    const formErrors = validateForm();
+    const formErrors = validate(null, null, true);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       setIsLoading(false);
@@ -39,15 +50,28 @@ const SubscriptionCheck = ({onCompleted}) => {
       setTimeout(() => {
         setErrors({});
         setIsLoading(false);
-        onCompleted();
+
+        onCompleted({
+          step: step.id,
+          email: email,
+          zipcode: zipcode
+        });
       }, 2000);
     }
   };
 
   // Updates the state for zipcode and email inputs and clears specific errors as the user types.
-  const handleChange = (setter) => (event) => {
-    setter(event.target.value);
-    setErrors(currentErrors => ({ ...currentErrors, [event.target.id]: '' }));
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+
+    if (id === 'zipcode') {
+      setZipcode(value);
+    } else if (id === 'email') {
+      setEmail(value);
+    }
+
+    const fieldErrors = validate(id, value);
+    setErrors(fieldErrors);
   };
 
   return (
@@ -63,7 +87,7 @@ const SubscriptionCheck = ({onCompleted}) => {
               type="text"
               id="zipcode"
               value={zipcode}
-              onChange={handleChange(setZipcode)}
+              onChange={handleChange}
               placeholder={window.sultans.Strings.subscription.availability.zipCodePlaceholder}
               disabled={isLoading}
             />
@@ -77,7 +101,7 @@ const SubscriptionCheck = ({onCompleted}) => {
               type="text"
               id="email"
               value={email}
-              onChange={handleChange(setEmail)}
+              onChange={handleChange}
               placeholder={window.sultans.Strings.subscription.availability.emailPlaceholder}
               disabled={isLoading}
             />
